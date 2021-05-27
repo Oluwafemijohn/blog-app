@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.decagon.android.sq007.databinding.ActivityPostListBinding
 import com.decagon.android.sq007.implementation1.adapter.PostAdapter
+import com.decagon.android.sq007.implementation1.adapter.RecyclerClickListener
 import com.decagon.android.sq007.implementation1.model.postmodel.PostModelItem
 import com.decagon.android.sq007.implementation1.repository.Repository
 import com.decagon.android.sq007.implementation1.utils.Resource
@@ -18,7 +19,7 @@ import com.decagon.android.sq007.implementation1.viewmodel.ListViewModel
 import com.decagon.android.sq007.implementation1.viewmodel.ViewModelProviderFactory
 import com.google.android.material.snackbar.Snackbar
 
- class PostListActivity : AppCompatActivity(),RecyclerClickListener {
+ class PostListActivity : AppCompatActivity(), RecyclerClickListener {
     lateinit var viewModel:ListViewModel
     lateinit var myAdapter: PostAdapter
 

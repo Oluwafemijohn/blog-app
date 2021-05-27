@@ -41,7 +41,6 @@ class ListViewModel(app: Application, private val appRepository: Repository) : A
             if (hasInternetConnection(getApplication<MyApplication>())) {
                 //Network call
                 val response = appRepository.getPosts()
-//                val result = handlePostResponse(response)
                 //Handling response
                 postData.postValue(handlePostResponse(response as Response<ArrayList<PostModelItem>>))
             } else {

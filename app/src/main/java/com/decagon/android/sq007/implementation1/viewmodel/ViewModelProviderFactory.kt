@@ -17,7 +17,7 @@ class ViewModelProviderFactory(val app: Application, val appRepository: Reposito
         }
         //Factory for create post
         if (modelClass.isAssignableFrom(CreatePostViewModel::class.java)) {
-            return CreatePostViewModel(app, appRepository) as T
+            return CreatePostViewModel( appRepository) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

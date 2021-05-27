@@ -1,18 +1,13 @@
 package com.decagon.android.sq007.implementation1.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.android.sq007.R
 import com.decagon.android.sq007.implementation1.model.postmodel.PostModelItem
-import com.decagon.android.sq007.implementation1.ui.RecyclerClickListener
-
 
 
 class PostAdapter(private val listener: RecyclerClickListener) : RecyclerView.Adapter<PostAdapter.PostsViewHolder>() {

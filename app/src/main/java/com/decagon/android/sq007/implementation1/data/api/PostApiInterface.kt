@@ -12,20 +12,16 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface PostApiInterface {
+    //get post
     @GET("posts")
     suspend fun getPosts(): Response<List<PostModelItem>>
-
-
+    //get comment
     @GET("posts/{position}/comments")
     suspend fun getComments(@Path("position") position: Int): Response<CommentModel>
-
-
-//    @POST("posts/{postId}/comments")
-//    suspend fun postComment(@Path("postId") postId:Int, @Body post: PostModel): Response<PostModel>
-
+    //add post
     @POST("posts")
     suspend fun addPost(@Body post: PostModelItem): Response<PostModelItem>
-
+    //add comment
     @POST("posts")
     suspend fun addComment(@Body comment: CommentModelItem): Response<CommentModelItem>
 }
