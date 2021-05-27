@@ -6,7 +6,10 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import com.decagon.android.sq007.implementation1.app.MyApplication
 
+
 object Util {
+
+    //Checking for network call
     fun hasInternetConnection(application: MyApplication): Boolean {
         val connectivityManager = application.getSystemService(
             Context.CONNECTIVITY_SERVICE

@@ -13,7 +13,7 @@ import retrofit2.http.Path
 
 interface PostApiInterface {
     @GET("posts")
-    suspend fun getPosts(): Response<PostModel>
+    suspend fun getPosts(): Response<List<PostModelItem>>
 
 
     @GET("posts/{position}/comments")

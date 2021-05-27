@@ -23,11 +23,12 @@ class DetailsViewModel(app: Application, private val appRepository: Repository) 
     private val _comment: MutableLiveData<Resource<CommentModelItem>> = MutableLiveData()
     val  comment : LiveData<Resource<CommentModelItem>>
     get()= _comment
+
+    //Making network call
      fun getCommentsId(position: Int){
         viewModelScope.launch {
             appRepository.getComments(position)
             commentData.postValue(Resource.Loading())
-
             try {
                 if (hasInternetConnection(getApplication<MyApplication>())) {
                     val response = appRepository.getComments(position)
@@ -37,6 +38,7 @@ class DetailsViewModel(app: Application, private val appRepository: Repository) 
                 }
             } catch (t: Throwable) {
                 when (t) {
+                    //Network error message
                     is IOException -> commentData.postValue(
                         Resource.Error(
                             getApplication<MyApplication>().getString(
@@ -56,7 +58,7 @@ class DetailsViewModel(app: Application, private val appRepository: Repository) 
         }
 
     }
-
+    //Convert the resource response
     private fun handlePostResponse(response: Response<CommentModel>): Resource<CommentModel> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
@@ -66,6 +68,7 @@ class DetailsViewModel(app: Application, private val appRepository: Repository) 
         return Resource.Error(response.message())
     }
 
+    //Convert the resource response
     private fun handlePostResponse2(response: Response<CommentModelItem>): Resource<CommentModelItem> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
@@ -74,11 +77,10 @@ class DetailsViewModel(app: Application, private val appRepository: Repository) 
         }
         return Resource.Error(response.message())
     }
-
-
-    fun addComment(body:String, email: String?, id: Int?, name: String?, postId:Int){
+    //adding comment
+    fun addComment(body:String,postId:Int){
         viewModelScope.launch {
-            val commentModelPost = CommentModelItem(body, email!!, id!!, name!!, postId)
+            val commentModelPost = CommentModelItem(body, postId = postId)
             val response = appRepository.addComment(commentModelPost)
             _comment.value = handlePostResponse2(response)
 

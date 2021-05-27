@@ -14,6 +14,7 @@ import com.decagon.android.sq007.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
 
+    //Splash screen
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +33,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, PostListActivity::class.java))
             finish() }, 3000)
         //Remove status bar
-        supportActionBar?.hide()
-
 
     }
 }

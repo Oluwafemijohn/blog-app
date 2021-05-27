@@ -16,6 +16,7 @@ class CreatePostViewModel(app: Application, private val appRepository: Repositor
     private var _newPost = MutableLiveData<PostModelItem>()
     val newPost : LiveData<PostModelItem> get() = _newPost
 
+    //Making network cll to add post
     fun addPost(postTitle:String, postBody:String, postId:String){
         viewModelScope.launch {
             val postModel = PostModelItem(postBody, id = null, postTitle, postId.toInt())

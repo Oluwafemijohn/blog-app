@@ -83,9 +83,7 @@ import com.decagon.android.sq007.implementation1.model.commenstmodel.CommentMode
 
 class CommentAdapter(private val currentList : List<CommentModelItem>):RecyclerView.Adapter<CommentAdapter.CardViewHolder>() {
 
-
-
-
+    //inner class
     class CardViewHolder (itemView : View):RecyclerView.ViewHolder(itemView){
         private val comment_name: TextView = itemView.findViewById(R.id.comment_name)
         private val  comment_email = itemView.findViewById<TextView>(R.id.comment_email)
@@ -99,17 +97,17 @@ class CommentAdapter(private val currentList : List<CommentModelItem>):RecyclerV
         }
     }
 
+    //Creating view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        Log.d("Commentssss", "getItemCount: ${currentList.size}")
-
         return CardViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.comment_card_view, parent, false)
         )
     }
-
+    //Binding the view
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(currentList[position])
     }
+    //Getting the item cout size
     override fun getItemCount(): Int {
         return currentList.size
     }

@@ -31,39 +31,35 @@ class PostDetailsActivity : AppCompatActivity() {
         binding = ActivityPostDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-         post = intent.getSerializableExtra("POST") as PostModelItem
-
+        //Getting data
+        post = intent.getSerializableExtra("POST") as PostModelItem
         binding.postDetailsTitle.text = post.title.toString()
         binding.postDetailBody.text = post.body.toString()
         init()
 
 
+        // Add post
         binding.addCommentBtn.setOnClickListener {
             var postId = post.id
             var body = binding.addComment.text.toString()
             if (postId != null) {
-                detailsViewModel.addComment(body, email = null, id = null, name = null, postId)
+                detailsViewModel.addComment(body = body, postId = postId)
+                binding.addComment.text.clear()
+
             }else{
                 Toast.makeText(this, "Please enter a comment", Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
-
-
-
+    //Initialising the recycler view
     private fun init() {
         binding.postDetailRecyclerview.setHasFixedSize(true)
         binding.postDetailRecyclerview.layoutManager = LinearLayoutManager(this)
-
-
         setupViewModel()
     }
 
-
-
+    //Setting up the View model Factory and the View model
     private fun setupViewModel() {
         val repository = Repository()
         val factory = ViewModelProviderFactory(application, repository)
@@ -72,18 +68,23 @@ class PostDetailsActivity : AppCompatActivity() {
         getPosts()
     }
 
+    //
     private fun getPosts() {
         detailsViewModel.commentData.observe(this, Observer { response ->
-            Log.d("CommentAdapter3", "getPictures: $response")
             when (response) {
+                //Success response
                 is Resource.Success -> {
-                  //  hideProgressBar()
                     response.data?.let { postResponse ->
-                        postResponse
+                        detailsViewModel.comment.observe(this, {newComment ->
+                              newComment.data?.let {
+                                  postResponse.add(it)
+                           }
+                        })
+                        //Attaching the recycler view
                         binding.postDetailRecyclerview.adapter = CommentAdapter(postResponse)
                     }
                 }
-
+                //Error response
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
@@ -91,14 +92,14 @@ class PostDetailsActivity : AppCompatActivity() {
                     }
 
                 }
-
+                //On Loading
                 is Resource.Loading -> {
                     showProgressBar()
                 }
             }
         })
     }
-
+    //Progrss bar
     private fun hideProgressBar() {
         binding.commentProgressLayout.visibility = View.GONE
     }
@@ -109,7 +110,7 @@ class PostDetailsActivity : AppCompatActivity() {
 
 
     fun onProgressClick(view: View) {
-        //Preventing Click during loading
+        Toast.makeText(this, "Pelase wait while loading", Toast.LENGTH_SHORT)
     }
 
 }

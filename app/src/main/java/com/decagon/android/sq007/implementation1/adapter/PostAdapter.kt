@@ -19,28 +19,18 @@ class PostAdapter(private val listener: RecyclerClickListener) : RecyclerView.Ad
 
     var postList = arrayListOf<PostModelItem>()
 
+    //inner class
     inner class PostsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val postCardLayout = itemView.findViewById<ConstraintLayout>(R.id.post_card_layout)
     }
-
-//    private val differCallback = object : DiffUtil.ItemCallback<PostModelItem>() {
-//        override fun areItemsTheSame(oldItem: PostModelItem, newItem: PostModelItem): Boolean {
-//            return oldItem.id == newItem.id
-//        }
-//        override fun areContentsTheSame(oldItem: PostModelItem, newItem: PostModelItem): Boolean {
-//
-//            return oldItem == newItem
-//        }
-//    }
-//    val differ = AsyncListDiffer(this, differCallback)
-
+    //On create view holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PostsViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.post_card_view, parent, false)
     )
+    //get item count
     override fun getItemCount() =  postList.size
-
+    //BInfding the view
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
-
         val posts = postList[position]
         holder.itemView.apply {
         val title = findViewById<TextView>(R.id.post_title)
@@ -54,17 +44,15 @@ class PostAdapter(private val listener: RecyclerClickListener) : RecyclerView.Ad
         }
     }
 
-
     fun addNewPost(post: PostModelItem){
         postList.add(post)
-        Log.d("PostListAdapt", "getPictures: ${postList.size}")
         notifyDataSetChanged()
 
     }
 
+    //getting data from the activity
     fun setUpPost(post : MutableList<PostModelItem>){
         this.postList = post as ArrayList<PostModelItem>
-        Log.d("PostListAdapt", "getPictures: ${postList.size}")
     }
 }
 
@@ -94,47 +82,3 @@ class PostAdapter(private val listener: RecyclerClickListener) : RecyclerView.Ad
 
 
 
-
-
-
-
-//class PostAdapter(private val listener: OnItemClickListener, private val context: Context):
-//    RecyclerView.Adapter<PostAdapter.CardViewHolder>() {
-//
-//    var items: PostModelItem  = PostModelItem("", 0, "",0)
-//        inner class CardViewHolder constructor(val binding: PostCardViewBinding):RecyclerView.ViewHolder(binding.root),
-//            View.OnClickListener{
-//            fun bind(posts:PostModelItem){
-//
-//            }
-//
-//            init {
-//                itemView.setOnClickListener(this)
-//            }
-//            override fun onClick(v: View?) {
-//                val position: Int = bindingAdapterPosition
-//                if (position != RecyclerView.NO_POSITION) {
-//                    listener.onItemClick(position, items)
-//                }
-//            }
-//
-//        }
-//
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-//        val binding = PostCardViewBinding .inflate(LayoutInflater.from(parent.context), parent, false)
-//        return CardViewHolder(binding)
-//    }
-//
-//    override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-//        holder.bind(items[position] )
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return items
-//    }
-//
-//}
-//interface OnItemClickListener {
-//    fun onItemClick(position: Int, items: PostModelItem)
-//}

@@ -14,7 +14,7 @@ import com.decagon.android.sq007.implementation1.viewmodel.ViewModelProviderFact
 import com.decagon.android.sq007.implementation1.adapter.PostAdapter
 import com.decagon.android.sq007.implementation1.utils.ObjectOfResponse
 
-class CreatePostActivity : AppCompatActivity(), RecyclerClickListener {
+class CreatePostActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityCreatePostBinding
     lateinit var viewModel:CreatePostViewModel
@@ -24,33 +24,28 @@ class CreatePostActivity : AppCompatActivity(), RecyclerClickListener {
         setContentView(binding.root)
 
 
+
         var repository = Repository()
         val factory = ViewModelProviderFactory(application, repository)
+        //Adding new post
         viewModel = ViewModelProvider(this, factory).get(CreatePostViewModel::class.java)
-
         binding.addPostButton.setOnClickListener {
             val postTitle = binding.addPostTitle.text.toString()
             val postBody = binding.addPostBody.text.toString()
             val postId = binding.addPostId.text.toString()
             if( postTitle != null  && postBody != null && postId  !=null ){
+                    //adding to the view model
                     viewModel.addPost(postTitle = postTitle, postBody = postBody, postId = postId)
-
                     viewModel.newPost.observe(this, {
                         val intent = Intent(this, PostListActivity::class.java)
                         intent.putExtra("posts", it)
                         startActivity(intent)
+                        finish()
                     })
                 }else{
                     Toast.makeText(this, "Please Enter details", Toast.LENGTH_SHORT).show()
             }
 
         }
-
-
-
-    }
-
-    override fun onItemClicked(post: PostModelItem) {
-
     }
 }
