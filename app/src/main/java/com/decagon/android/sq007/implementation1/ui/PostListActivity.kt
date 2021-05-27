@@ -77,7 +77,7 @@ import com.google.android.material.snackbar.Snackbar
                         myAdapter = PostAdapter(this)
                         if (intent.getSerializableExtra("posts") != null){
                             val post = intent.getSerializableExtra("posts") as PostModelItem
-                            postResponse.add(post)
+                            postResponse.add(0, post)
                         }
                         //passing data to the method in the view model
                         myAdapter.setUpPost(postResponse)
@@ -108,7 +108,7 @@ import com.google.android.material.snackbar.Snackbar
     private fun showProgressBar() {
         binding.postProgressLayout.visibility = View.VISIBLE
     }
-     
+
     fun onProgressClick(view: View) {
         //Preventing Click during loading
     }

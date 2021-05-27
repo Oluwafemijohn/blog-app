@@ -1,7 +1,6 @@
 package com.decagon.android.sq007.implementation1.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,10 +12,10 @@ import com.decagon.android.sq007.implementation1.adapter.CommentAdapter
 import com.decagon.android.sq007.implementation1.model.postmodel.PostModelItem
 import com.decagon.android.sq007.implementation1.repository.Repository
 import com.decagon.android.sq007.implementation1.utils.Resource
+import com.decagon.android.sq007.implementation1.utils.errorSnack
 import com.decagon.android.sq007.implementation1.viewmodel.DetailsViewModel
 import com.decagon.android.sq007.implementation1.viewmodel.ViewModelProviderFactory
 import com.google.android.material.snackbar.Snackbar
-import com.decagon.android.sq007.implementation1.utils.errorSnack
 
 class PostDetailsActivity : AppCompatActivity() {
 
@@ -42,8 +41,8 @@ class PostDetailsActivity : AppCompatActivity() {
         binding.addCommentBtn.setOnClickListener {
             var postId = post.id
             var body = binding.addComment.text.toString()
-            if (postId != null) {
-                detailsViewModel.addComment(body = body, postId = postId)
+            if (body.isNotEmpty()) {
+                detailsViewModel.addComment(body = body, postId = postId!!)
                 binding.addComment.text.clear()
 
             }else{
@@ -77,7 +76,7 @@ class PostDetailsActivity : AppCompatActivity() {
                     response.data?.let { postResponse ->
                         detailsViewModel.comment.observe(this, {newComment ->
                               newComment.data?.let {
-                                  postResponse.add(it)
+                                  postResponse.add( it)
                            }
                         })
                         //Attaching the recycler view
@@ -90,7 +89,6 @@ class PostDetailsActivity : AppCompatActivity() {
                     response.message?.let { message ->
                         binding.commentLayoutRoot.errorSnack(message, Snackbar.LENGTH_LONG)
                     }
-
                 }
                 //On Loading
                 is Resource.Loading -> {
@@ -107,7 +105,6 @@ class PostDetailsActivity : AppCompatActivity() {
     private fun showProgressBar() {
         binding.commentLayoutRoot.visibility = View.VISIBLE
     }
-
 
     fun onProgressClick(view: View) {
         Toast.makeText(this, "Pelase wait while loading", Toast.LENGTH_SHORT)

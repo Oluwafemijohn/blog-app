@@ -111,5 +111,6 @@ class CommentAdapter(private val currentList : List<CommentModelItem>):RecyclerV
     override fun getItemCount(): Int {
         return currentList.size
     }
+
 }
 

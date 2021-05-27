@@ -33,7 +33,7 @@ class CreatePostActivity : AppCompatActivity() {
             val postTitle = binding.addPostTitle.text.toString()
             val postBody = binding.addPostBody.text.toString()
             val postId = binding.addPostId.text.toString()
-            if( postTitle != null  && postBody != null && postId  !=null ){
+            if(postBody.isNotEmpty() && postTitle.isNotEmpty() && postId.isNotEmpty()){
                     //adding to the view model
                     viewModel.addPost(postTitle = postTitle, postBody = postBody, postId = postId)
                     viewModel.newPost.observe(this, {

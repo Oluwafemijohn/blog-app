@@ -44,12 +44,6 @@ class PostAdapter(private val listener: RecyclerClickListener) : RecyclerView.Ad
         }
     }
 
-    fun addNewPost(post: PostModelItem){
-        postList.add(post)
-        notifyDataSetChanged()
-
-    }
-
     //getting data from the activity
     fun setUpPost(post : MutableList<PostModelItem>){
         this.postList = post as ArrayList<PostModelItem>
